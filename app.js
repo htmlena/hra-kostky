@@ -8,3 +8,19 @@ PRAVIDLA HRY:
 - Hra končí jakmile jeden z hráčů dosáhne dopředu určeného počtu bodů (typicky 100 bodů).
 
 */
+
+let body;
+let bodyVKole;
+let aktivniHrac;
+let kostka;
+let koncoveBody;
+
+body = [0, 0];
+bodyVKole = 0;
+aktivniHrac = 0;
+koncoveBody = 25;
+kostka = Math.floor(Math.random() * 6) + 1;
+
+document.querySelector('#soucasne-' + aktivniHrac).textContent = kostka;
+
+document.querySelector('.kostka').style.display = "none";
