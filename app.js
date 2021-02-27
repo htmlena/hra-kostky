@@ -38,4 +38,24 @@ document.querySelector('.tlacitko-hod').addEventListener('click', function () {
     kostkaDOM.textContent = kostka;
 
     // 3. Aktualizovat body kola pokud padla/nepadla jednicka
+    if (kostka !== 1) {
+        // Pridat body
+        bodyVKole += kostka;
+        document.querySelector('#soucasne-' + aktivniHrac).textContent = bodyVKole;
+    } else {
+        // Prepni hrace
+        // if (aktivniHrac === 0) {
+        //     aktivniHrac = 1;
+        // } else {
+        //     aktivniHrac = 0;
+        // }
+        aktivniHrac === 0 ? aktivniHrac = 1 : aktivniHrac = 0;
+        bodyVKole = 0;
+
+        document.getElementById('soucasne-0').textContent = '0';
+        document.getElementById('soucasne-1').textContent = '0';
+
+        document.querySelector('.hrac-0-panel').classList.toggle('aktivni');
+        document.querySelector('.hrac-1-panel').classList.toggle('aktivni');
+    }
 });
