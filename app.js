@@ -37,6 +37,5 @@ document.querySelector('.tlacitko-hod').addEventListener('click', function () {
     kostkaDOM.style.display = 'block';
     kostkaDOM.textContent = kostka;
 
-
     // 3. Aktualizovat body kola pokud padla/nepadla jednicka
 });
