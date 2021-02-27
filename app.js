@@ -21,6 +21,22 @@ aktivniHrac = 0;
 koncoveBody = 25;
 kostka = Math.floor(Math.random() * 6) + 1;
 
-document.querySelector('#soucasne-' + aktivniHrac).textContent = kostka;
+document.getElementById('body-0').textContent = '0';
+document.getElementById('body-1').textContent = '0';
+document.getElementById('soucasne-0').textContent = '0';
+document.getElementById('soucasne-1').textContent = '0';
 
 document.querySelector('.kostka').style.display = "none";
+
+document.querySelector('.tlacitko-hod').addEventListener('click', function () {
+    // 1. Nahodne cislo
+    kostka = Math.floor(Math.random() * 6) + 1;
+
+    // 2. Zobrazit vysledek
+    let kostkaDOM = document.querySelector('.kostka');
+    kostkaDOM.style.display = 'block';
+    kostkaDOM.textContent = kostka;
+
+
+    // 3. Aktualizovat body kola pokud padla/nepadla jednicka
+});
