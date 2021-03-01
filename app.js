@@ -49,13 +49,37 @@ document.querySelector('.tlacitko-hod').addEventListener('click', function () {
         // } else {
         //     aktivniHrac = 0;
         // }
-        aktivniHrac === 0 ? aktivniHrac = 1 : aktivniHrac = 0;
-        bodyVKole = 0;
-
-        document.getElementById('soucasne-0').textContent = '0';
-        document.getElementById('soucasne-1').textContent = '0';
-
-        document.querySelector('.hrac-0-panel').classList.toggle('aktivni');
-        document.querySelector('.hrac-1-panel').classList.toggle('aktivni');
+        dalsiHrac()
     }
 });
+
+document.querySelector('.tlacitko-dost').addEventListener('click', function () {
+    // Pridat soucasne body k celkovym bodum hrace
+    body[aktivniHrac] += bodyVKole;
+
+    // Aktualizovat UI
+    document.querySelector('#body-' + aktivniHrac).textContent = body[aktivniHrac];
+
+    // ZKontrolovat zda hrac jiz vyhral
+    if (body[aktivniHrac] >= koncoveBody) {
+        document.querySelector('#jmeno-' + aktivniHrac).textContent = "Vitez!";
+        document.querySelector('.hrac-' + aktivniHrac + '-panel').classList.remove('aktivni');
+        document.querySelector('.hrac-' + aktivniHrac + '-panel').classList.add('vitez');
+        document.querySelector('.kostka').style.display = "none";
+    } else {
+        // Prepnout hrace
+        dalsiHrac()
+    }
+});
+
+function dalsiHrac() {
+    aktivniHrac === 0 ? aktivniHrac = 1 : aktivniHrac = 0;
+    bodyVKole = 0;
+
+    document.getElementById('soucasne-0').textContent = '0';
+    document.getElementById('soucasne-1').textContent = '0';
+
+    document.querySelector('.hrac-0-panel').classList.toggle('aktivni');
+    document.querySelector('.hrac-1-panel').classList.toggle('aktivni');
+
+}
