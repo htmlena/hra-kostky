@@ -14,61 +14,57 @@ let bodyVKole;
 let aktivniHrac;
 let kostka;
 let koncoveBody;
+let hraProbiha;
 
-body = [0, 0];
-bodyVKole = 0;
-aktivniHrac = 0;
-koncoveBody = 25;
-kostka = Math.floor(Math.random() * 6) + 1;
-
-document.getElementById('body-0').textContent = '0';
-document.getElementById('body-1').textContent = '0';
-document.getElementById('soucasne-0').textContent = '0';
-document.getElementById('soucasne-1').textContent = '0';
-
-document.querySelector('.kostka').style.display = "none";
+init();
 
 document.querySelector('.tlacitko-hod').addEventListener('click', function () {
-    // 1. Nahodne cislo
-    kostka = Math.floor(Math.random() * 6) + 1;
+    if (hraProbiha) {
+        // 1. Nahodne cislo
+        kostka = Math.floor(Math.random() * 6) + 1;
 
-    // 2. Zobrazit vysledek
-    let kostkaDOM = document.querySelector('.kostka');
-    kostkaDOM.style.display = 'block';
-    kostkaDOM.textContent = kostka;
+        // 2. Zobrazit vysledek
+        let kostkaDOM = document.querySelector('.kostka');
+        kostkaDOM.style.display = 'block';
+        kostkaDOM.textContent = kostka;
 
-    // 3. Aktualizovat body kola pokud padla/nepadla jednicka
-    if (kostka !== 1) {
-        // Pridat body
-        bodyVKole += kostka;
-        document.querySelector('#soucasne-' + aktivniHrac).textContent = bodyVKole;
-    } else {
-        // Prepni hrace
-        // if (aktivniHrac === 0) {
-        //     aktivniHrac = 1;
-        // } else {
-        //     aktivniHrac = 0;
-        // }
-        dalsiHrac()
+        // 3. Aktualizovat body kola pokud padla/nepadla jednicka
+        if (kostka !== 1) {
+            // Pridat body
+            bodyVKole += kostka;
+            document.querySelector('#soucasne-' + aktivniHrac).textContent = bodyVKole;
+        } else {
+            // Prepni hrace
+            // if (aktivniHrac === 0) {
+            //     aktivniHrac = 1;
+            // } else {
+            //     aktivniHrac = 0;
+            // }
+            dalsiHrac()
+        }
     }
+
 });
 
 document.querySelector('.tlacitko-dost').addEventListener('click', function () {
-    // Pridat soucasne body k celkovym bodum hrace
-    body[aktivniHrac] += bodyVKole;
+    if (hraProbiha) {
+        // Pridat soucasne body k celkovym bodum hrace
+        body[aktivniHrac] += bodyVKole;
 
-    // Aktualizovat UI
-    document.querySelector('#body-' + aktivniHrac).textContent = body[aktivniHrac];
+        // Aktualizovat UI
+        document.querySelector('#body-' + aktivniHrac).textContent = body[aktivniHrac];
 
-    // ZKontrolovat zda hrac jiz vyhral
-    if (body[aktivniHrac] >= koncoveBody) {
-        document.querySelector('#jmeno-' + aktivniHrac).textContent = "Vitez!";
-        document.querySelector('.hrac-' + aktivniHrac + '-panel').classList.remove('aktivni');
-        document.querySelector('.hrac-' + aktivniHrac + '-panel').classList.add('vitez');
-        document.querySelector('.kostka').style.display = "none";
-    } else {
-        // Prepnout hrace
-        dalsiHrac()
+        // ZKontrolovat zda hrac jiz vyhral
+        if (body[aktivniHrac] >= koncoveBody) {
+            document.querySelector('#jmeno-' + aktivniHrac).textContent = "Vitez!";
+            document.querySelector('.hrac-' + aktivniHrac + '-panel').classList.remove('aktivni');
+            document.querySelector('.hrac-' + aktivniHrac + '-panel').classList.add('vitez');
+            document.querySelector('.kostka').style.display = "none";
+            hraProbiha = false;
+        } else {
+            // Prepnout hrace
+            dalsiHrac()
+        }
     }
 });
 
@@ -82,4 +78,30 @@ function dalsiHrac() {
     document.querySelector('.hrac-0-panel').classList.toggle('aktivni');
     document.querySelector('.hrac-1-panel').classList.toggle('aktivni');
 
+}
+
+document.querySelector('.tlacitko-novy').addEventListener('click', init);
+
+function init() {
+    body = [0, 0];
+    aktivniHrac = 0;
+    bodyVKole = 0;
+    koncoveBody = 25;
+    hraProbiha = true;
+
+    document.querySelector('.kostka').style.display = "none";
+
+    document.getElementById('body-0').textContent = '0';
+    document.getElementById('body-1').textContent = '0';
+    document.getElementById('soucasne-0').textContent = '0';
+    document.getElementById('soucasne-1').textContent = '0';
+
+    document.querySelector('#jmeno-0').textContent = "Hrac 1!";
+    document.querySelector('#jmeno-1').textContent = "Hrac 2!";
+
+    document.querySelector('.hrac-0-panel').classList.remove('aktivni');
+    document.querySelector('.hrac-1-panel').classList.remove('aktivni');
+    document.querySelector('.hrac-0-panel').classList.remove('vitez');
+    document.querySelector('.hrac-1-panel').classList.remove('vitez');
+    document.querySelector('.hrac-0-panel').classList.add('aktivni');
 }
